@@ -18,7 +18,7 @@ public class Produto {
     @NotBlank(message = "Insira um nome")
     private String nome;
     @NotNull(message = "Insira um valor para o produto")
-    private boolean valor;
+    private double valor;
 
 
     @ManyToOne @JoinColumn(name = "venda_id")

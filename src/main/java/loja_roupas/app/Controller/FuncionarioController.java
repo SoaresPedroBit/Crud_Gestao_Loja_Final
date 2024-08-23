@@ -19,7 +19,7 @@ public class FuncionarioController {
     FuncionarioService funcionarioService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody Funcionario funcionario, long id){
+    public ResponseEntity<String> salvar(@RequestBody Funcionario funcionario){
 
         try {
             String mensagem = this.funcionarioService.salvar(funcionario);

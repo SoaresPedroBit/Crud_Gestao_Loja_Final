@@ -48,8 +48,8 @@ public class ClienteService {
         return clienteRepository.findByCpf(cpf);
     }
 
-    public List<Cliente> buscaAdulto(Integer idade){
-        return clienteRepository.FindByIdade(idade);
+    public List<Cliente> buscaAdulto(){
+        return clienteRepository.FindAllByIdade();
     }
 
     public List<Cliente> buscaTelefone(String telefone){

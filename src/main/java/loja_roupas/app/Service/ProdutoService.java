@@ -41,6 +41,19 @@ public class ProdutoService {
         this.produtoRepository.deleteById(id);
         return "foi de arrasta";
     }
+     public List<Produto> buscaNome(String nome){
+        List<Produto> produtos = this.produtoRepository.findByNome(nome);
+        return produtos;
+
+     }
+
+     public List<Produto> buscaTudoDesc(){
+        return produtoRepository.findAllByOrderByValorDesc();
+     }
+
+     public List<Produto> buscaNomeValor(String nome, double valor){
+        return produtoRepository.findByNomeAndValor(nome, valor);
+     }
 
 
 }

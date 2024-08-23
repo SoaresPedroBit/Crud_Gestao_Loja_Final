@@ -12,7 +12,7 @@ public interface VendaRepository extends JpaRepository<Venda,Long> {
 
     List<Venda> findByFuncionario(Funcionario funcionario);
     List<Venda> findByValorTotal(double valor);
-    //@Query("SELECT v FROM venda v WHERE funcionario = :nomeP")
-    //List<Venda> findbyNome(@Param("nomeP")String nomeP);
+    @Query("SELECT v FROM Venda v JOIN v.produtos p WHERE p.nome = :nomeProduto")
+    List<Venda> findVendasByProdutoNome(@Param("nomeProduto") String nomeProduto);
 
 }

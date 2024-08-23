@@ -12,7 +12,7 @@ public interface FuncionarioRepository extends JpaRepository<Funcionario, Long> 
 
     List<Funcionario> findByNome(String nome);
     List<Funcionario> findByMatricula(String matricula);
-    @Query("SELECT v FROM Funcionario v WHERE v.idade = :idade")
+    @Query("SELECT v FROM Funcionario v WHERE v.idade > :idade")
     List<Funcionario> findByIdade(@Param("idade") Integer idade);
 
 

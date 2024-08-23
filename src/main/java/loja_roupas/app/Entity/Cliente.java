@@ -1,5 +1,6 @@
 package loja_roupas.app.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -27,7 +28,7 @@ public class Cliente {
     @NotBlank(message = "Insira um telefone") @Pattern(regexp = "\\(\\d{2}\\) \\d{4,5}-\\d{4}", message = "Número de telefone inválido")
     private String telefone;
 
-    @OneToMany(mappedBy = "cliente",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "cliente") @JsonIgnoreProperties({"cliente"})
     private List<Venda>vendas;
 
 }

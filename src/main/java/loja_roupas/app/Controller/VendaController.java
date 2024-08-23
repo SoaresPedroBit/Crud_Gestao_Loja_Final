@@ -22,7 +22,7 @@ public class VendaController {
     FuncionarioService funcionarioService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody Venda venda, long id){
+    public ResponseEntity<String> salvar(@RequestBody Venda venda){
 
         try {
             String mensagem = this.vendaService.salvar(venda);
@@ -97,15 +97,16 @@ public class VendaController {
     }
 
 
-//    @GetMapping("/buscaPorNome/{nome}")
-//    public ResponseEntity<List<Venda>> buscaPorNome(@PathVariable String nome) {
-//        List<Venda> vendas = vendaService.findVendabyNome(nome);
-//        if (vendas.isEmpty()) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        } else {
-//            return new ResponseEntity<>(vendas, HttpStatus.OK);
-//        }
-//    }
-
-
+    @GetMapping("/buscaPorProduto/{nomeProduto}")
+    public ResponseEntity<List<Venda>> buscaPorProduto(@PathVariable String nomeProduto) {
+        List<Venda> vendas = vendaService.findVendasByProdutoNome(nomeProduto);
+        if (vendas.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(vendas, HttpStatus.OK);
+        }
+    }
 }
+
+
+

@@ -19,7 +19,7 @@ public class ClienteController {
     ClienteService clienteService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody Cliente cliente, long id){
+    public ResponseEntity<String> salvar(@RequestBody Cliente cliente){
 
         try {
             String mensagem = this.clienteService.salvar(cliente);
@@ -71,7 +71,7 @@ public class ClienteController {
 
 
     }
-    @GetMapping("/bucasCpf/{cpf}")
+    @GetMapping("/buscaCpf/{cpf}")
     public ResponseEntity<List<Cliente>> buscaCpf(@PathVariable String cpf){
         try {
             List<Cliente> clientes = this.clienteService.buscaCpf(cpf);
@@ -82,10 +82,10 @@ public class ClienteController {
 
     }
 
-    @GetMapping("/buscaAdulto/{idade}")
-    public ResponseEntity<List<Cliente>> buscaAdulto(@PathVariable Integer idade){
+    @GetMapping("/buscaAdulto")
+    public ResponseEntity<List<Cliente>> buscaAdulto(){
         try {
-            List<Cliente> clientes = this.clienteService.buscaAdulto(idade);
+            List<Cliente> clientes = this.clienteService.buscaAdulto();
             return new ResponseEntity<>(clientes, HttpStatus.CREATED);
         } catch (Exception e) {
             return null;
@@ -94,7 +94,7 @@ public class ClienteController {
     }
 
     @GetMapping("/buscaTelefone/{telefone}")
-    public ResponseEntity<List<Cliente>> buscaTelefone(String telefone){
+    public ResponseEntity<List<Cliente>> buscaTelefone(@PathVariable String telefone){
         try {
             List<Cliente> clientes = this.clienteService.buscaTelefone(telefone);
             return new ResponseEntity<>(clientes, HttpStatus.CREATED);

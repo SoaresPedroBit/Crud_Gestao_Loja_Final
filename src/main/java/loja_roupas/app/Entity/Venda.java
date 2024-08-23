@@ -1,5 +1,6 @@
 package loja_roupas.app.Entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -9,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,11 +25,11 @@ public class Venda {
 
     private Double valorTotal;
 
-    @ManyToOne @JoinColumn(name = "cliente_id") @NotNull(message = "Insira um cliente valido")
+    @ManyToOne @JoinColumn(name = "cliente_id") @NotNull(message = "Insira um cliente válido")@JsonIgnoreProperties({"vendas"})
     private Cliente cliente;
-    @ManyToOne @JoinColumn(name = "funcionario_id") @NotNull(message = "Insira um funcionario valido;")
+    @ManyToOne @JoinColumn(name = "funcionario_id") @NotNull(message = "Insira um funcionario valido;")@JsonIgnoreProperties({"vendas"})
     private Funcionario funcionario;
-    @OneToMany(mappedBy = "venda",cascade = CascadeType.ALL) @NotEmpty(message = "Nenhum produto selecionado")
+    @OneToMany(mappedBy = "venda") @NotEmpty(message = "Nenhum produto selecionado") @JsonIgnoreProperties({"venda"})
     private List<Produto> produtos;
 
 }

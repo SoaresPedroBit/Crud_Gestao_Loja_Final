@@ -16,7 +16,7 @@ public class ProdutoController {
     ProdutoService produtoService;
 
     @PostMapping("/salvar")
-    public ResponseEntity<String> salvar(@RequestBody Produto produto, long id){
+    public ResponseEntity<String> salvar(@RequestBody Produto produto){
 
         try {
             String mensagem = this.produtoService.salvar(produto);
@@ -67,6 +67,37 @@ public class ProdutoController {
         }
 
     }
+
+    @GetMapping("/buscaNome/{nome}")
+    public ResponseEntity<List<Produto>> buscaNome(@PathVariable String nome){
+        try {
+            List<Produto> produtos = this.produtoService.buscaNome(nome);
+            return new ResponseEntity<>(produtos, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND );
+        }
+    }
+
+    @GetMapping("/mostraTudoDesc")
+    public ResponseEntity<List<Produto>> mostraTudoDesc(){
+        try {
+            List<Produto> produtosList = this.produtoService.buscaTudoDesc();
+            return new ResponseEntity<>(produtosList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST );
+        }
+    }
+
+    @GetMapping("/buscaNomeValor/{nome}/{valor}")
+    public ResponseEntity<List<Produto>> buscaNomeValor(@PathVariable String nome,@PathVariable double valor){
+        try {
+            List<Produto> produtosList = this.produtoService.buscaNomeValor(nome, valor);
+            return new ResponseEntity<>(produtosList, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null,HttpStatus.BAD_REQUEST );
+        }
+    }
+
 
 
 }

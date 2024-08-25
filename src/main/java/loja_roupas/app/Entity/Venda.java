@@ -29,7 +29,7 @@ public class Venda {
     private Cliente cliente;
     @ManyToOne @JoinColumn(name = "funcionario_id") @NotNull(message = "Insira um funcionario valido;")@JsonIgnoreProperties({"vendas"})
     private Funcionario funcionario;
-    @OneToMany(mappedBy = "venda") @NotEmpty(message = "Nenhum produto selecionado") @JsonIgnoreProperties({"venda"})
+    @ManyToMany @NotEmpty(message = "Nenhum produto selecionado") @JsonIgnoreProperties({"venda"})
     private List<Produto> produtos;
 
 }

@@ -1,12 +1,11 @@
 package loja_roupas.app.Service;
 
+import jakarta.transaction.Transactional;
 import loja_roupas.app.Entity.Funcionario;
 import loja_roupas.app.Repository.FuncionarioRepository;
+import loja_roupas.app.Repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.service.annotation.GetExchange;
 
 import java.util.List;
 import java.util.Optional;
@@ -17,6 +16,8 @@ public class FuncionarioService {
 
     @Autowired
     FuncionarioRepository funcionarioRepository;
+    @Autowired
+    VendaRepository vendaRepository;
 
     public String salvar(Funcionario funcionario){
         this.funcionarioRepository.save(funcionario);
@@ -42,7 +43,12 @@ public class FuncionarioService {
     }
 
 
+    @Transactional
     public String deletar(long id){
+        Optional<Funcionario> funcionario = funcionarioRepository.findById(id);
+
+        // Remover ou desvincular as vendas associadas ao funcionário
+        vendaRepository.deleteByFuncionario(funcionario);
         this.funcionarioRepository.deleteById(id);
         return "foi demitido meu parça";
     }

@@ -1,7 +1,10 @@
 package loja_roupas.app.Service;
 
+import jakarta.transaction.Transactional;
 import loja_roupas.app.Entity.Produto;
+import loja_roupas.app.Entity.Venda;
 import loja_roupas.app.Repository.ProdutoRepository;
+import loja_roupas.app.Repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,8 @@ public class ProdutoService {
 
     @Autowired
     ProdutoRepository produtoRepository;
+    @Autowired
+    VendaRepository vendaRepository;
 
     public String salvar(Produto produto){
         this.produtoRepository.save(produto);
@@ -37,7 +42,11 @@ public class ProdutoService {
 
     }
 
+    @Transactional
     public String deletar(long id){
+        Optional<Produto> produto = produtoRepository.findById(id);
+
+        vendaRepository.deleteByProdutos(produto);
         this.produtoRepository.deleteById(id);
         return "foi de arrasta";
     }

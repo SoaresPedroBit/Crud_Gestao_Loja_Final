@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 
 public interface ProdutoRepository extends JpaRepository<Produto,Long> {
@@ -15,4 +16,5 @@ public interface ProdutoRepository extends JpaRepository<Produto,Long> {
     List<Produto> findByNome(@Param("nome") String nome);
     List<Produto> findAllByOrderByValorDesc();
     List<Produto> findByNomeAndValor(String nome, double valor);
+
 }

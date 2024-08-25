@@ -1,9 +1,9 @@
 package loja_roupas.app.Service;
 
+import jakarta.transaction.Transactional;
 import loja_roupas.app.Entity.Cliente;
-import loja_roupas.app.Entity.Funcionario;
 import loja_roupas.app.Repository.ClienteRepository;
-import org.apache.logging.log4j.message.StringFormattedMessage;
+import loja_roupas.app.Repository.VendaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +15,8 @@ public class ClienteService {
 
     @Autowired
     ClienteRepository clienteRepository;
+    @Autowired
+    VendaRepository vendaRepository;
 
     public String salvar(Cliente cliente){
         this.clienteRepository.save(cliente);
@@ -39,7 +41,14 @@ public class ClienteService {
 
     }
 
+    @Transactional
     public String deletar(long id){
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+
+
+        // Remover as vendas associadas ao cliente
+        vendaRepository.deleteByCliente(cliente);
+
         this.clienteRepository.deleteById(id);
         return "foi de arrasta";
     }

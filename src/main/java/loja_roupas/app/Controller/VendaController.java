@@ -85,7 +85,7 @@ public class VendaController {
         return new ResponseEntity<>(vendas, HttpStatus.OK);
     }
 
-    @GetMapping("/buscaVendaValorMaior/{valor}")
+    @GetMapping("/buscaVendaValor/{valor}")
     public ResponseEntity<List<Venda>> buscaVendaMaior(@PathVariable double valor) {
         List<Venda> vendas = vendaService.buscaVendaValorMaior(valor);
         if (vendas.isEmpty()) {
